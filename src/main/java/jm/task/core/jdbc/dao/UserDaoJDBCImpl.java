@@ -55,7 +55,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try (Connection connection = Util.getConnecton()) {
             connection.setAutoCommit(false);
             connectionVar = connection;
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM userstable WHERE id="+ id);
+            PreparedStatement statement = connectionVar.prepareStatement("DELETE FROM userstable WHERE id="+ id);
             statement.execute();
             connectionVar.commit();
         } catch (SQLException e) {
@@ -71,8 +71,6 @@ public class UserDaoJDBCImpl implements UserDao {
     public List<User> getAllUsers() {
         List<User> result = new ArrayList<>();
         try (Connection connection = Util.getConnecton()) {
-            connection.setAutoCommit(false);
-            connectionVar = connection;
             Statement statement = connection.createStatement();
             ResultSet set = statement.executeQuery("SELECT * FROM userstable");
             while (set.next()) {
@@ -86,11 +84,6 @@ public class UserDaoJDBCImpl implements UserDao {
             connectionVar.commit();
         } catch (SQLException e) {
             e.printStackTrace();
-                try {
-                    connectionVar.rollback();
-                } catch (SQLException ex) {
-                    System.out.println(">Unsuccessful rollback<");
-                }
         }
         return result;
     }
