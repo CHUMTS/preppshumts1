@@ -90,18 +90,10 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void cleanUsersTable() {
         try (Connection connection = Util.getConnecton()) {
-            connection.setAutoCommit(false);
-            connectionVar = connection;
             PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE userstable");
             statement.execute();
-            connectionVar.commit();
         } catch (SQLException e) {
             e.printStackTrace();
-                try {
-                    connectionVar.rollback();
-                } catch (SQLException ex) {
-                    System.out.println(">Unsuccessful rollback<");
-                }
         }
     }
 }
