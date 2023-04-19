@@ -81,7 +81,7 @@ public class UserDaoJDBCImpl implements UserDao {
                 user.setAge(set.getByte("age"));
                 result.add(user);
             }
-            connectionVar.commit();
+                                        //по ошибке не убрал отсюда строку при предыдущем коммите
         } catch (SQLException e) {
             e.printStackTrace();
         }
