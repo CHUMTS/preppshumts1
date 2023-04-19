@@ -93,7 +93,7 @@ public class UserDaoJDBCImpl implements UserDao {
             PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE userstable");
             statement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.printStackTrace();  //"You cannot roll back a TRUNCATE TABLE statement", убрал транзакцию отсюда
         }
     }
 }
